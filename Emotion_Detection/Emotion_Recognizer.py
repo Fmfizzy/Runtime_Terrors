@@ -27,26 +27,31 @@ import logging
 import cv2
 
 
-log = logging.getLogger("fer")
-log.setLevel(logging.INFO)
+class Emotion:
 
-__version__ = "22.3.0"
+    def __init__(self):
+        log = logging.getLogger("fer")
+        log.setLevel(logging.INFO)
 
-__title__ = "fer"
-__description__ = "Facial expression recognition from images"
-__url__ = "https://github.com/justinshenk/fer"
-__uri__ = __url__
-__doc__ = __description__ + " <" + __url__ + ">"
+        __version__ = "22.3.0"
 
-__author__ = "Justin Shenk"
-__email__ = "shenkjustin@gmail.com"
+        __title__ = "fer"
+        __description__ = "Facial expression recognition from images"
+        __url__ = "https://github.com/justinshenk/fer"
+        __uri__ = __url__
+        __doc__ = __description__ + " <" + __url__ + ">"
 
-__license__ = "MIT"
-__copyright__ = "Copyright (c) 2019 " + __author__
+        __author__ = "Justin Shenk"
+        __email__ = "shenkjustin@gmail.com"
 
+        __license__ = "MIT"
+        __copyright__ = "Copyright (c) 2019 " + __author__
 
-img = cv2.imread("fer\sad.jpg")
-detector = FER()
-detector.detect_emotions(img)
-dominant_emotion, emotion_score = detector.top_emotion(img)
-print(dominant_emotion, emotion_score)
+    @staticmethod
+    def read(uid, full_path):
+        img = cv2.imread(full_path)
+        detector = FER()
+        detector.detect_emotions(img)
+        dominant_emotion, emotion_score = detector.top_emotion(img)
+        print(f"Request from: {uid} -> Emotion: {dominant_emotion} | Score: {emotion_score}")
+        return dominant_emotion
